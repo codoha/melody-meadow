@@ -1,0 +1,16 @@
+{
+  "name": "Melody Meadow — Rhythm English",
+  "short_name": "Melody Meadow",
+  "description": "A four-lane rhythm game that teaches English vocabulary through musical beats.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#10141b",
+  "theme_color": "#10141b",
+  "icons": [
+    { "src": "assets/app-icon.png", "sizes": "64x64", "type": "image/png", "purpose": "any" },
+    { "src": "assets/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

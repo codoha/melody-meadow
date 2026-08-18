@@ -18,7 +18,7 @@
 - **Replay system** — sessions are recordable and replayable (`replay.js`), so learners can review their runs.
 - **Daily practice** — a curated daily song with tracked progress (`daily.js` + `progress.js`, persisted to `localStorage`).
 - **Song library** — 6 shipped songs (Fruit Beat, Animal Parade, Body Boogie, Color Train, Sky Sparkle, Toy Box Bounce), each with its own cover and scene art.
-- **Strict CSP + installable PWA** — `default-src 'self'`, offline-capable via service worker, add-to-home-screen on iOS/Android.
+- **Strict CSP + installable PWA** — `default-src 'self'`, service worker for offline play, web manifest, add-to-home-screen on iOS/Android.
 
 ## 🎮 Songs shipped
 
@@ -37,6 +37,8 @@
 music-words/
 ├── index.html          # Single-page app shell, lane layout, timeline
 ├── styles.css          # ~1.6k lines of design tokens + responsive layout
+├── manifest.json       # PWA web manifest
+├── sw.js               # Service worker (offline app shell + audio cache)
 ├── src/
 │   ├── app.js          # Main app controller (~2.1k lines)
 │   ├── rhythm.js       # Lane + note rendering, fall animation
@@ -56,7 +58,7 @@ music-words/
 │   ├── daily.js        # Daily song rotation
 │   ├── settings.js
 │   ├── songs.js        # Song catalog & metadata
-│   └── lesson.js
+│   └── sw-register.js  # Service worker registration
 └── assets/
     ├── audio/          # 6 m4a song tracks + manifest
     ├── *-cover.png     # Per-song cover art
