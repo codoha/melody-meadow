@@ -5,7 +5,7 @@
 
 四轨下落式英语节奏音游 —— 把单词学习编织进节拍里。每首曲目都是一段结构化的聆听旅程:主歌 → 副歌 → 字母揭示 → 奖励终曲。
 
-**Live demo:** <https://english.wyccyw.com/apps/game/music-words/>
+**Live demo:** <https://english.wyccyw.com/game/music-words/>
 
 ---
 
