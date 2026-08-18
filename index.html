@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#10141b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; media-src 'self'; object-src 'none'; base-uri 'none'" />
+    <title>Melody Meadow | Rhythm English</title>
+    <link rel="icon" href="assets/app-icon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css?v=0.15.0" />
+  </head>
+  <body>
+    <main class="rhythm-app" aria-labelledby="song-title">
+      <header class="app-header">
+        <div class="brand" aria-label="Melody Meadow Rhythm English">
+          <img src="assets/app-icon.png" alt="" width="36" height="36" />
+          <span><strong>Melody Meadow</strong><small>Rhythm English</small></span>
+        </div>
+        <div class="header-song">
+          <strong id="song-title">Fruit Beat</strong>
+          <span id="section-label">Get ready</span>
+        </div>
+        <div class="header-time" aria-label="Song time">
+          <span id="song-time">0:00</span><span aria-hidden="true">/</span><span id="song-duration">1:27</span>
+        </div>
+      </header>
+
+      <div class="play-layout">
+        <section class="stage-column" aria-label="Four lane rhythm game">
+          <div id="song-timeline" class="song-timeline" aria-label="Song progress">
+            <div class="timeline-sections" aria-hidden="true">
+              <i class="is-active">A</i><i>B</i><i>Chorus</i><i>Letters</i><i>Reward</i>
+            </div>
+            <div class="timeline-track"><span id="top-progress-bar"></span></div>
+            <span id="top-progress-label" class="timeline-count">0 / 48</span>
+          </div>
+
+          <div id="lane-frame" class="lane-frame">
+            <div class="stage-backdrop" aria-hidden="true"></div>
+            <div class="stage-energy" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="beat-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lane-grid" aria-label="Tap lanes">
+              <div class="lane lane-one"><div id="lane-notes-0" class="lane-notes"></div><button class="lane-pad" data-lane="0" type="button" aria-label="Lane 1, keyboard A"><span>A</span></button></div>
+              <div class="lane lane-two"><div id="lane-notes-1" class="lane-notes"></div><button class="lane-pad" data-lane="1" type="button" aria-label="Lane 2, keyboard S"><span>S</span></button></div>
+              <div class="lane lane-three"><div id="lane-notes-2" class="lane-notes"></div><button class="lane-pad" data-lane="2" type="button" aria-label="Lane 3, keyboard D"><span>D</span></button></div>
+              <div class="lane lane-four"><div id="lane-notes-3" class="lane-notes"></div><button class="lane-pad" data-lane="3" type="button" aria-label="Lane 4, keyboard F"><span>F</span></button></div>
+            </div>
+            <div class="judgement-line" aria-hidden="true"><span></span></div>
+            <canvas id="hit-effects-canvas" class="hit-effects-canvas" aria-hidden="true"></canvas>
+            <div id="countdown" class="countdown" role="status" hidden>3</div>
+            <div id="judgement-feedback" class="judgement-feedback" role="status"></div>
+            <div id="combo-pop" class="combo-pop" aria-hidden="true"></div>
+            <div id="section-banner" class="section-banner" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <aside class="game-hud" aria-label="Song status">
+          <dl class="score-grid">
+            <div><dt>Score</dt><dd id="score-value">0</dd></div>
+            <div><dt>Accuracy</dt><dd id="accuracy-value">100%</dd></div>
+            <div><dt>Progress</dt><dd id="hud-progress-value">0 / 48</dd></div>
+            <div><dt>Combo</dt><dd id="combo-value">0</dd></div>
+            <div><dt>Miss</dt><dd id="miss-value">0</dd></div>
+            <div><dt>Bad</dt><dd id="bad-value">0</dd></div>
+          </dl>
+
+          <section class="word-display" aria-live="polite">
+            <span id="phase-label" class="cue-kicker">Word round</span>
+            <div class="word-art"><img id="current-word-image" src="assets/apple.png" alt="" /></div>
+            <h2 id="current-word">Apple</h2>
+            <p id="lyric-line">Apple, apple, red and round!</p>
+          </section>
+
+          <div class="reward-strip">
+            <img src="assets/bunny.png" alt="A smiling bunny with a picnic basket" />
+            <span>Picnic stars</span><strong id="star-value">0</strong>
+          </div>
+        </aside>
+      </div>
+
+      <footer id="game-controls" class="game-controls" aria-label="Game controls">
+        <button id="exit-button" class="tool-button" type="button" aria-label="Exit to song setup" title="Exit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17 5 12l5-5M5 12h12M19 5v14" /></svg>
+        </button>
+        <button id="restart-button" class="tool-button" type="button" aria-label="Restart song" title="Restart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5" /></svg>
+        </button>
+        <button id="pause-button" class="tool-button primary-tool" type="button" aria-label="Pause song" title="Pause">
+          <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
+          <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>
+        </button>
+        <button id="beat-button" class="tool-button is-active" type="button" aria-label="Turn beat off" aria-pressed="true" title="Beat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13M9 10l10-2M6 21c2 0 3-1.1 3-2.5S8 16 6 16s-3 1.1-3 2.5S4 21 6 21Zm10-2c2 0 3-1.1 3-2.5S18 14 16 14s-3 1.1-3 2.5S14 19 16 19Z" /></svg>
+        </button>
+        <label class="volume-control" for="volume-control">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7M18 6a8 8 0 0 1 0 12" /></svg>
+          <input id="volume-control" type="range" min="0" max="100" value="78" aria-label="Master volume" />
+        </label>
+        <div class="speed-setting compact-speed">
+          <span>Speed <output id="game-speed-output" for="game-speed-control">0.60×</output></span>
+          <input id="game-speed-control" class="speed-slider" type="range" min="0.50" max="1.25" step="0.01" value="0.60" aria-label="Game speed" />
+        </div>
+        <span id="tempo-label" class="tempo-label">88 BPM · 4K</span>
+      </footer>
+    </main>
+
+    <div id="start-screen" class="setup-screen">
+      <section id="song-library" class="song-library" aria-labelledby="library-title">
+        <header class="library-header">
+          <div class="library-heading">
+            <p class="setup-eyebrow">Melody Meadow songbook</p>
+            <h1 id="library-title">Choose a song</h1>
+            <div class="library-view-row">
+              <div class="library-view-tabs" role="group" aria-label="Song library view">
+                <button id="library-view-today" data-library-view="today" type="button" aria-pressed="true">Today</button>
+                <button id="library-view-songbook" data-library-view="songbook" type="button" aria-pressed="false">Songbook</button>
+              </div>
+              <span id="today-progress" class="today-progress" role="status" aria-live="polite">0 of 3 lessons</span>
+            </div>
+          </div>
+          <div class="library-tools">
+            <span><strong>6</strong> songs · <strong>24</strong> words</span>
+            <button id="parent-settings-button" class="parent-settings-trigger" type="button" aria-label="Parent audio settings" title="Audio settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Zm7.4-3.5 1.8-1.4-2-3.5-2.2.9a7.8 7.8 0 0 0-1.8-1L15 4.5h-4L10.7 7a7.8 7.8 0 0 0-1.8 1l-2.2-.9-2 3.5L6.6 12a7.6 7.6 0 0 0 0 2l-1.9 1.4 2 3.5 2.2-.9a7.8 7.8 0 0 0 1.8 1l.3 2.5h4l.3-2.5a7.8 7.8 0 0 0 1.8-1l2.2.9 2-3.5-1.9-1.4a7.6 7.6 0 0 0 0-2Z" /></svg>
+            </button>
+          </div>
+        </header>
+        <div id="song-list" class="song-list" role="listbox" aria-label="English rhythm songs">
+          <button class="song-choice is-selected" data-song="fruit-beat" type="button" role="option" aria-selected="true">
+            <img src="assets/fruit-cover.png" alt="" /><span><strong>Fruit Beat</strong><small>Fruit picnic · 48 notes</small></span><b>Easy</b>
+          </button>
+          <button class="song-choice" data-song="animal-parade" type="button" role="option" aria-selected="false">
+            <img src="assets/animal-cover.png" alt="" /><span><strong>Animal Parade</strong><small>Animal friends · 48 notes</small></span><b>Easy</b>
+          </button>
+          <button class="song-choice" data-song="sky-sparkle" type="button" role="option" aria-selected="false">
+            <img src="assets/sky-cover.png" alt="" /><span><strong>Sky Sparkle</strong><small>Sky words · 48 notes</small></span><b>Easy</b>
+          </button>
+          <button class="song-choice" data-song="color-train" type="button" role="option" aria-selected="false">
+            <img src="assets/color-cover.png" alt="" /><span><strong>Color Train</strong><small>Color station · 48 notes</small></span><b>Easy</b>
+          </button>
+          <button class="song-choice" data-song="body-boogie" type="button" role="option" aria-selected="false">
+            <img src="assets/body-cover.png" alt="" /><span><strong>Body Boogie</strong><small>Move and learn · 48 notes</small></span><b>Easy</b>
+          </button>
+          <button class="song-choice" data-song="toy-box-bounce" type="button" role="option" aria-selected="false">
+            <img src="assets/toy-cover.png" alt="" /><span><strong>Toy Box Bounce</strong><small>Playroom toys · 48 notes</small></span><b>Easy</b>
+          </button>
+        </div>
+      <section id="song-setup" class="song-setup" aria-labelledby="setup-title">
+        <div class="setup-cover">
+          <img id="setup-cover-image" src="assets/fruit-cover.png" alt="Fruit Beat cover" />
+          <span>English rhythm</span>
+        </div>
+        <div class="setup-main">
+          <p id="setup-topic" class="setup-eyebrow">Fruit picnic</p>
+          <h1 id="setup-title">Fruit Beat</h1>
+          <p class="setup-artist">Melody Meadow · Easy 4K</p>
+          <dl class="song-meta">
+            <div><dt>BPM</dt><dd id="setup-bpm">88</dd></div>
+            <div><dt>Time</dt><dd id="setup-duration">1:27</dd></div>
+            <div><dt>Notes</dt><dd id="setup-note-count">48</dd></div>
+            <div><dt>Keys</dt><dd>A S D F</dd></div>
+          </dl>
+          <div id="learning-targets" class="learning-targets" aria-label="Learning targets">
+            <span><img src="assets/apple.png" alt="" />Apple</span>
+            <span><img src="assets/banana.png" alt="" />Banana</span>
+            <span><img src="assets/orange.png" alt="" />Orange</span>
+            <span><img src="assets/grape.png" alt="" />Grape</span>
+          </div>
+          <div class="setup-progress" aria-live="polite"><span id="setup-best">Best: —</span><span id="setup-mastery">Words mastered: 0 / 4</span></div>
+        </div>
+        <div class="setup-options">
+            <div class="mode-setting">
+            <span>Difficulty</span>
+            <div class="mode-options" role="group" aria-label="Song difficulty">
+              <button class="mode-option is-selected" data-mode="learn" type="button" aria-pressed="true"><strong>Learn</strong><small>Hints · 32 notes</small></button>
+              <button class="mode-option" data-mode="play" type="button" aria-pressed="false"><strong>Play</strong><small>Full song · 48 notes</small></button>
+              <button class="mode-option" data-mode="challenge" type="button" aria-pressed="false"><strong>Challenge</strong><small>Quick beats · 64 notes</small></button>
+            </div>
+          </div>
+          <div class="speed-setting start-speed">
+            <span>Song speed <output id="setup-speed-output" for="setup-speed-control">0.60×</output></span>
+            <input id="setup-speed-control" class="speed-slider" type="range" min="0.50" max="1.25" step="0.01" value="0.60" aria-label="Game speed before starting" />
+            <div class="speed-anchors" aria-hidden="true"><span>0.50×</span><span>0.75×</span><span>1.00×</span><span>1.25×</span></div>
+          </div>
+          <button id="start-button" class="primary-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>
+            <span>Start Learn</span>
+          </button>
+          <label class="preview-setup-toggle"><input id="setup-preview-enabled-control" type="checkbox" checked /> Preview words before songs</label>
+          <button id="practice-button" class="setup-practice-button" type="button">Practice a section</button>
+        </div>
+      </section>
+      </section>
+    </div>
+
+    <div id="parent-settings-screen" class="parent-settings-screen" hidden>
+      <section role="dialog" aria-modal="true" aria-labelledby="parent-settings-title">
+        <header class="parent-settings-header">
+          <div>
+            <p>For grown-ups</p>
+            <h2 id="parent-settings-title">Audio settings</h2>
+          </div>
+          <button id="parent-settings-close-button" class="parent-settings-close" type="button" aria-label="Close audio settings" title="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+        <div class="parent-audio-sliders">
+          <label for="music-volume-control"><span>Music</span><output id="music-volume-output">82%</output><input id="music-volume-control" type="range" min="0" max="100" value="82" /></label>
+          <label for="voice-volume-control"><span>Word voice</span><output id="voice-volume-output">100%</output><input id="voice-volume-control" type="range" min="0" max="100" value="100" /></label>
+          <label for="effects-volume-control"><span>Tap sounds</span><output id="effects-volume-output">80%</output><input id="effects-volume-control" type="range" min="0" max="100" value="80" /></label>
+        </div>
+        <div class="calibration-summary">
+          <div><strong>Tap timing</strong><span id="calibration-status">Not calibrated</span></div>
+          <button id="calibration-open-button" class="secondary-button" type="button">Calibrate taps</button>
+          <button id="calibration-reset-button" class="text-button" type="button">Reset calibration</button>
+        </div>
+        <div class="parent-settings-actions">
+          <button id="parent-settings-reset-button" class="secondary-button" type="button">Reset audio</button>
+          <button id="parent-settings-done-button" class="primary-button" type="button">Done</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="calibration-screen" class="calibration-screen" hidden>
+      <section role="dialog" aria-modal="true" aria-labelledby="calibration-title">
+        <header class="parent-settings-header">
+          <div>
+            <p>For grown-ups</p>
+            <h2 id="calibration-title">Calibrate tap timing</h2>
+          </div>
+          <button id="calibration-close-button" class="parent-settings-close" type="button" aria-label="Close calibration" title="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+        <p id="calibration-instructions" class="calibration-instructions">Tap the large target on every beat. This is saved only after you confirm.</p>
+        <p id="calibration-audio-note" class="calibration-audio-note" role="status" hidden></p>
+        <div class="calibration-progress"><span id="calibration-step">Ready</span><span id="calibration-result" aria-live="polite"></span></div>
+        <button id="calibration-target" class="calibration-target" type="button" aria-label="Tap on the beat" hidden><span>Tap</span></button>
+        <div class="calibration-actions">
+          <button id="calibration-cancel-button" class="secondary-button" type="button">Cancel</button>
+          <button id="calibration-retry-button" class="secondary-button" type="button" hidden>Try again</button>
+          <button id="calibration-start-button" class="primary-button" type="button">Start calibration</button>
+          <button id="calibration-confirm-button" class="primary-button" type="button" hidden>Use this setting</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="practice-screen" class="practice-screen" hidden>
+      <section aria-labelledby="practice-title">
+        <p>Short loop</p>
+        <h2 id="practice-title" tabindex="-1">Choose a section</h2>
+        <div class="practice-options">
+          <button data-practice="words-a" type="button" aria-pressed="true"><strong>Words A</strong><small>First word round</small></button>
+          <button data-practice="words-b" type="button"><strong>Words B</strong><small>Second word round</small></button>
+          <button data-practice="chorus" type="button"><strong>Chorus</strong><small>Song repeat</small></button>
+          <button data-practice="letters" type="button"><strong>Letters</strong><small>Letter review</small></button>
+        </div>
+        <div class="practice-range-card">
+          <div class="practice-range-heading"><strong>Loop range</strong><span id="practice-range-label">1-8 of 8 notes</span></div>
+          <div id="practice-range-track" class="practice-range-track" aria-hidden="true"><span></span></div>
+          <label>Start note <input id="practice-range-start" type="range" min="0" max="7" value="0" /></label>
+          <label>End note <input id="practice-range-end" type="range" min="0" max="7" value="7" /></label>
+        </div>
+        <div class="practice-repeat" role="group" aria-label="Repeat loop">
+          <span>Repeat</span>
+          <div class="practice-repeat-options">
+            <button data-practice-repeat="once" class="is-selected" type="button" aria-pressed="true">1 time</button>
+            <button data-practice-repeat="three" type="button" aria-pressed="false">3 times</button>
+            <button data-practice-repeat="infinite" type="button" aria-pressed="false">∞ loop</button>
+          </div>
+        </div>
+        <p id="practice-loop-status" class="practice-loop-status" role="status">Loop 1 / 1</p>
+        <div class="practice-actions">
+          <button id="practice-exit-button" class="secondary-button" type="button">Exit</button>
+          <button id="practice-close-button" class="secondary-button" type="button">Back</button>
+          <button id="practice-start-button" class="primary-button" type="button">Start loop</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="preview-screen" class="preview-screen" hidden>
+      <section role="dialog" aria-modal="true" aria-labelledby="preview-title">
+        <p class="setup-eyebrow">Before the song</p>
+        <h2 id="preview-title">Word preview</h2>
+        <p class="preview-copy">Tap the card when you are ready to hear the word.</p>
+        <div id="preview-cards" class="preview-cards"></div>
+        <div class="preview-progress"><span id="preview-step">1 / 4</span></div>
+        <label class="preview-preference"><input id="preview-enabled-control" type="checkbox" checked /> Show preview next time</label>
+        <div class="preview-actions">
+          <button id="preview-skip-button" class="secondary-button" type="button">Skip preview</button>
+          <button id="preview-next-button" class="secondary-button" type="button">Next word</button>
+          <button id="preview-start-button" class="primary-button" type="button">Start song</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="complete-screen" class="complete-screen" hidden>
+      <section aria-labelledby="complete-title">
+        <p>Song complete</p>
+        <h2 id="complete-title">Fruit superstar!</h2>
+        <p id="final-difficulty" class="result-difficulty">Learn</p>
+        <div id="result-stars" class="result-stars" aria-label="1 out of 3 stars">1 / 3 stars</div>
+        <p id="final-best" class="result-best">Best Learn: —</p>
+        <div class="result-score"><strong id="final-score">0</strong><span>points</span></div>
+        <dl class="result-stats">
+          <div><dt>Accuracy</dt><dd id="final-accuracy">100%</dd></div>
+          <div><dt>Max combo</dt><dd id="final-combo">0</dd></div>
+          <div><dt>Perfect</dt><dd id="final-perfect">0</dd></div>
+          <div><dt>Good</dt><dd id="final-good">0</dd></div>
+          <div><dt>Miss</dt><dd id="final-miss">0</dd></div>
+        </dl>
+        <div id="sync-result" class="sync-result" hidden>
+          <div class="sync-result-heading"><strong id="sync-rate">--</strong><span>Sync</span></div>
+          <p id="sync-coaching" class="sync-coaching"></p>
+          <div class="sync-counts"><span>Early <b id="sync-early">0</b></span><span>On beat <b id="sync-on-time">0</b></span><span>Late <b id="sync-late">0</b></span><span>Miss <b id="sync-misses">0</b></span></div>
+        </div>
+        <div id="learned-row" class="learned-row"><span>A · Apple</span><span>B · Banana</span><span>O · Orange</span><span>G · Grape</span></div>
+        <div class="result-callouts">
+          <p id="today-learned">Today learned: —</p>
+          <p id="practice-next">Practice next: —</p>
+          <p id="today-result-status" class="today-result-status" role="status" aria-live="polite" hidden></p>
+        </div>
+        <div class="result-actions">
+          <button id="result-exit-button" class="secondary-button" type="button">Choose another song</button>
+          <button id="result-practice-button" class="secondary-button" type="button">Practice</button>
+          <button id="result-weak-practice-button" class="secondary-button" type="button" hidden>Practice tricky words</button>
+          <button id="result-review-button" class="secondary-button" type="button" hidden>Review run</button>
+          <button id="practice-return-button" class="secondary-button" type="button" hidden>Back to song</button>
+          <button id="result-next-lesson-button" class="secondary-button" type="button" hidden>Next lesson</button>
+          <button id="play-again-button" class="primary-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5" /></svg>
+            <span>Play again</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div id="replay-screen" class="replay-screen" hidden>
+      <section role="dialog" aria-modal="true" aria-labelledby="replay-title">
+        <header class="replay-header">
+          <div>
+            <p>Rainbow Replay</p>
+            <h2 id="replay-title">See your run</h2>
+          </div>
+          <button id="replay-close-button" class="parent-settings-close" type="button" aria-label="Close replay" title="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          </button>
+        </header>
+        <div class="replay-legend" aria-label="Replay result legend">
+          <span><i class="replay-dot perfect"></i>Perfect</span>
+          <span><i class="replay-dot good"></i>Good</span>
+          <span><i class="replay-dot miss"></i>Keep trying</span>
+        </div>
+        <div id="replay-sections" class="replay-sections"></div>
+        <p id="replay-detail" class="replay-detail" role="status">Choose a note to see its word.</p>
+        <div class="replay-actions">
+          <button id="replay-practice-button" class="primary-button" type="button">Practice this part</button>
+          <button id="replay-back-button" class="secondary-button" type="button">Back to result</button>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="src/app.js?v=0.15.0"></script>
+  </body>
+</html>

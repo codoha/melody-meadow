@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-17T15:36:41.289Z",
+  "ownership": "Original Melody Meadow composition generated from repository-owned parameters.",
+  "renderer": "scripts/render-song-masters.swift",
+  "format": "AAC-LC in M4A, stereo, 44.1 kHz, target 128 kbps VBR",
+  "instrumentSource": "Repository-owned deterministic additive/subtractive synthesis; no external samples.",
+  "targetPeak": 0.84,
+  "sections": [
+    "intro",
+    "words-a",
+    "words-b",
+    "chorus",
+    "letters",
+    "reward"
+  ],
+  "tracks": [
+    {
+      "id": "fruit-beat",
+      "source": "assets/audio/fruit-beat.m4a",
+      "bytes": 1106564,
+      "sha256": "63fb1e15f5293f89ca91999954e5fbd7e4dec268ef9791a5a43ea9a255b8e94e",
+      "durationSeconds": 79.620703,
+      "masterPeak": 0.8399999737739563,
+      "masterRmsDbfs": -18.367586289487782,
+      "clipped": false
+    },
+    {
+      "id": "animal-parade",
+      "source": "assets/audio/animal-parade.m4a",
+      "bytes": 1167611,
+      "sha256": "6e2ebc03b66cdb2a14025ed4c42831b9746c738e87a188281595efcc1c5e038f",
+      "durationSeconds": 82.428571,
+      "masterPeak": 0.8399999737739563,
+      "masterRmsDbfs": -17.747594140725166,
+      "clipped": false
+    },
+    {
+      "id": "sky-sparkle",
+      "source": "assets/audio/sky-sparkle.m4a",
+      "bytes": 1051712,
+      "sha256": "855b4073f4fdea01cd69afadee62e5c8351a64af1435de11665eaf3bc6e24d7c",
+      "durationSeconds": 81,
+      "masterPeak": 0.8399999737739563,
+      "masterRmsDbfs": -19.051121937910235,
+      "clipped": false
+    },
+    {
+      "id": "color-train",
+      "source": "assets/audio/color-train.m4a",
+      "bytes": 1162422,
+      "sha256": "14ff78de6dc64c541a1567582a23bb6264532cc7c54a2c3520672f54a3865ec9",
+      "durationSeconds": 78.288141,
+      "masterPeak": 0.8400000333786011,
+      "masterRmsDbfs": -17.868872433150003,
+      "clipped": false
+    },
+    {
+      "id": "body-boogie",
+      "source": "assets/audio/body-boogie.m4a",
+      "bytes": 1061799,
+      "sha256": "4538c753f7f8fd65268d09934cdbd85f6a64c4cdc993f27562e75d3be6e72a44",
+      "durationSeconds": 77,
+      "masterPeak": 0.8399999737739563,
+      "masterRmsDbfs": -19.543560160886607,
+      "clipped": false
+    },
+    {
+      "id": "toy-box-bounce",
+      "source": "assets/audio/toy-box-bounce.m4a",
+      "bytes": 1104477,
+      "sha256": "cbf382678c6eda00168d82e3c752e0c954095b5fa9465b7aa36ce7e5faef68a5",
+      "durationSeconds": 78.94873,
+      "masterPeak": 0.8399999141693115,
+      "masterRmsDbfs": -17.80809644167094,
+      "clipped": false
+    }
+  ]
+}
